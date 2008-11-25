@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# npcd	Nagios Performancedata C Daemon
+#
+# chkconfig:	345 98 02
+#
+# description:	agios Performancedata C Daemon
+#
+# processname:	npcd
+# config:
+# pidfile:
+#
+# $Id$
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get network config
+. /etc/sysconfig/network
+
+# Get service config - may override defaults
+[ -f /etc/sysconfig/npcd ] && . /etc/sysconfig/npcd
+
+# Check that networking is up.
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network -a "$1" != stop -a "$1" != status ]; then
+		msg_network_down "Nagios Performancedata Daemon"
+		exit 1
+	fi
+else
+	exit 0
+fi
+
+start() {
+	# Check if the service is already running?
+	if [ ! -f /var/lock/subsys/npcd ]; then
+		msg_starting "Nagios Performancedata Daemon"
+		daemon /usr/sbin/npcd -f /etc/pnp4nagios/npcd.cfg -d
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/npcd
+	else
+		msg_already_running "Nagios Performancedata Daemon"
+	fi
+}
+
+stop() {
+	if [ -f /var/lock/subsys/npcd ]; then
+		# Stop daemons.
+		msg_stopping "Nagios Performancedata Daemon"
+		killproc npcd
+		rm -f /var/lock/subsys/npcd
+	else
+		msg_not_running "Nagios Performancedata Daemon"
+	fi
+}
+
+condrestart() {
+	if [ -f /var/lock/subsys/npcd ]; then
+		stop
+		start
+	else
+		msg_not_running "Nagios Performancedata Daemon"
+		RETVAL=$1
+	fi
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  restart)
+	stop
+	start
+	;;
+  try-restart)
+	condrestart 0
+	;;
+  force-reload)
+	condrestart 7
+	;;
+  status)
+	status npcd
+	RETVAL=$?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|try-restart|reload|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
