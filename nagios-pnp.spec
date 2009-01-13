@@ -1,6 +1,3 @@
-# TODO
-# warning: Installed (but unpackaged) file(s) found:
-#   /usr/lib/pnp/check_pnp_rrds.pl
 Summary:	Nagios performance data analysis tool
 Name:		nagios-pnp
 Version:	0.4.12
@@ -33,7 +30,7 @@ plugins and stores them automatically into RRD-databases.
 %build
 %configure \
 	--bindir=%{_sbindir} \
-	--libexecdir=%{_libexecdir}/pnp \
+	--libexecdir=%{_libdir}/pnp \
 	--sysconfdir=%{_sysconfdir}/pnp \
 	--localstatedir=%{_localstatedir}/log/pnp \
 	--datadir=%{_datadir}/nagios/html/pnp \
@@ -46,6 +43,7 @@ plugins and stores them automatically into RRD-databases.
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
+	STRIP=: \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__make} install-config \
@@ -83,11 +81,13 @@ fi
 %doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README
 %doc README.npcd THANKS TODO
 %dir %{_sysconfdir}/pnp
-%config(noreplace) %{_sysconfdir}/pnp/*
-%config(noreplace) /etc/logrotate.d/pnp
-%attr(755,root,root) %{_initrddir}/npcd
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/pnp/*
+%attr(754,root,root) /etc/rc.d/init.d/npcd
+%config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/pnp
 %attr(755,root,root) %{_sbindir}/npcd
-%attr(755,root,root) %{_libexecdir}/pnp/process_perfdata.pl
+%dir %{_libdir}/pnp
+%attr(755,root,root) %{_libdir}/pnp/check_pnp_rrds.pl
+%attr(755,root,root) %{_libdir}/pnp/process_perfdata.pl
 %attr(755,nagios,nagios) %{_localstatedir}/lib/pnp
 %attr(755,nagios,nagios) %{_localstatedir}/log/pnp
 %attr(755,nagios,nagios) %{_localstatedir}/spool/pnp
