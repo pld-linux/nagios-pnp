@@ -9,6 +9,7 @@ Source0:	http://dl.sourceforge.net/pnp4nagios/pnp-%{version}.tar.gz
 # Source0-md5:	9dbbf08191a258f6798c9516b3821ff0
 Source1:	%{name}.logrotate
 Source2:	%{name}.init
+BuildRequires:	perl-Time-HiRes
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	rrdtool
 BuildRequires:	sed >= 4.0
