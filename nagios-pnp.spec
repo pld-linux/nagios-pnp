@@ -1,12 +1,12 @@
 Summary:	Nagios performance data analysis tool
 Name:		nagios-pnp
-Version:	0.4.12
+Version:	0.4.14
 Release:	0.1
 License:	GPL v2
 Group:		Applications/System
 URL:		http://www.pnp4nagios.org/pnp/start
 Source0:	http://dl.sourceforge.net/pnp4nagios/pnp-%{version}.tar.gz
-# Source0-md5:	eb833a4769a5b58aad0ac53cae3e3e9f
+# Source0-md5:	9dbbf08191a258f6798c9516b3821ff0
 Source1:	%{name}.logrotate
 Source2:	%{name}.init
 BuildRequires:	rpmbuild(macros) >= 1.228
