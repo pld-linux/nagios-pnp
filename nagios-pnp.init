@@ -35,7 +35,7 @@ start() {
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/npcd ]; then
 		msg_starting "Nagios Performancedata Daemon"
-		daemon /usr/sbin/npcd -f /etc/pnp4nagios/npcd.cfg -d
+		daemon /usr/sbin/npcd -f /etc/pnp/npcd.cfg -d
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/npcd
 	else

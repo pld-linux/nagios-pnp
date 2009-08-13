@@ -1,7 +1,7 @@
 Summary:	Nagios performance data analysis tool
 Name:		nagios-pnp
 Version:	0.4.14
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/System
 URL:		http://www.pnp4nagios.org/pnp/start
@@ -15,6 +15,7 @@ BuildRequires:	rrdtool
 BuildRequires:	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
 Requires:	nagios
+Requires:	perl-Time-HiRes
 Requires:	php(gd)
 Requires:	rc-scripts
 Requires:	rrdtool
@@ -34,8 +35,8 @@ plugins and stores them automatically into RRD-databases.
 	--libexecdir=%{_libdir}/pnp \
 	--sysconfdir=%{_sysconfdir}/pnp \
 	--localstatedir=%{_localstatedir}/log/pnp \
-	--datadir=%{_datadir}/nagios/html/pnp \
-	--datarootdir=%{_datadir}/nagios/html/pnp \
+	--datadir=%{_datadir}/nagios/pnp \
+	--datarootdir=%{_datadir}/nagios/pnp \
 	--with-perfdata-dir=%{_localstatedir}/lib/pnp \
 	--with-perfdata-spool-dir=%{_localstatedir}/spool/pnp
 
@@ -92,4 +93,4 @@ fi
 %attr(755,nagios,nagios) %{_localstatedir}/lib/pnp
 %attr(755,nagios,nagios) %{_localstatedir}/log/pnp
 %attr(755,nagios,nagios) %{_localstatedir}/spool/pnp
-%{_datadir}/nagios/html/pnp
+%{_datadir}/nagios/pnp
