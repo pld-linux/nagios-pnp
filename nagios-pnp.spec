@@ -1,7 +1,7 @@
 Summary:	Nagios performance data analysis tool
 Name:		nagios-pnp
 Version:	0.6.7
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		Applications/System
 URL:		http://www.pnp4nagios.org/pnp/start

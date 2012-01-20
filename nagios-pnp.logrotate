@@ -1,4 +1,5 @@
 /var/log/pnp/*.log {
+	su nagios nagios
 	missingok
 	notifempty
 }
