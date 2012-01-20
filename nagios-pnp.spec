@@ -13,6 +13,7 @@ BuildRequires:	perl-Time-HiRes
 BuildRequires:	rpmbuild(macros) >= 1.228
 BuildRequires:	rrdtool
 BuildRequires:	sed >= 4.0
+Conflicts:	logrotate < 3.8.0
 Requires(post,preun):	/sbin/chkconfig
 Requires:	nagios
 Requires:	perl-Time-HiRes
