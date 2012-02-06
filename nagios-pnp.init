@@ -7,8 +7,6 @@
 # description:	agios Performancedata C Daemon
 #
 # processname:	npcd
-# config:
-# pidfile:
 #
 # $Id$
 
